@@ -28,9 +28,8 @@ try {
   );
 
   $customer_service = new \Frontsystems\Customer($client);
-//  $customer_service->save($customer);
-//  var_dump($customer_service->getLastResult());
-//  var_dump($result = $customer_service->getCustomerByEmail($credentials['email'])->getLastResult());
+  var_dump($customer_service->save($customer)->getResult());
+  var_dump($customer_service->getCustomerByEmail($credentials['email'])->getResult());
   var_dump($customer_service->getCustomerId());
   var_dump($customer_service->setCustomerId(123)->getCustomer());
 }
