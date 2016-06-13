@@ -1,0 +1,36 @@
+{
+    "name": "zaporylie/php-frontsystems",
+    "description": "Frontsystems ERP SDK",
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Jakub Piasecki",
+            "email": "jakub@nymedia.no"
+        }
+    ],
+    "scripts": {
+        "post-install-cmd": "if [ ! -f 'examples/config.yml' ]; then echo 'username: \npassword: \nemail: ' >> examples/config.yml; fi",
+        "post-update-cmd": "if [ ! -f 'examples/config.yml' ]; then echo 'username: \npassword: \nemail: ' >> examples/config.yml; fi",
+        "test": [
+            "phpunit",
+            "composer test-style"
+        ],
+        "test-style": "phpcs --standard=PSR2 -p -n ./src ./examples ./test",
+        "fix-style": "phpcbf --standard=PSR2 -p -n ./src ./examples ./test"
+    },
+    "require": {
+        "php": "^5.4 || ^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.3.*",
+        "symfony/yaml": "~2.0",
+        "squizlabs/php_codesniffer": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Frontsystems\\": "src/Frontsystems/",
+            "Frontsystems\\Entity\\": "src/Frontsystems/Entity/",
+            "Frontsystems\\Data\\": "src/Frontsystems/Data/"
+        }
+    }
+}
