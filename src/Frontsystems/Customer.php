@@ -2,21 +2,37 @@
 
 namespace Frontsystems;
 
-class Customer implements ServiceInterface
+class Customer implements ResultInterface
 {
   protected $client;
 
-  protected $lastResult;
+  protected $result;
 
-  public function __construct(Client $client) {
+  protected $customerId;
+
+  public function __construct(Client $client, $customerId = null) {
     $this->client = $client;
+    $this->customerId = $customerId;
   }
 
   /**
    * @return mixed
    */
-  public function getLastResult() {
-    return $this->lastResult;
+  public function getResult() {
+    return $this->result;
+  }
+
+  public function save(\Frontsystems\Entity\Customer $customer)
+  {
+    $customer->setCustomerId($this->customerId);
+    $data = [
+      'customer' => json_decode(json_encode($customer), TRUE)
+    ];
+    $result = $this->client->call('InsertCustomer', $data);
+    $this->result = $result->InsertCustomerResult;
+    $this->validateResponse($this->result);
+    $this->setCustomerId($this->result);
+    return $this;
   }
 
   /**
@@ -24,19 +40,57 @@ class Customer implements ServiceInterface
    * @return $this
    * @throws \Frontsystems\ClientException
    */
-  public function getCustomer($email) {
+  public function getCustomerByEmail($email) {
     $result = $this->client->call('GetCustomer', [
       'email' => $email,
     ]);
-    $this->lastResult = $result->GetCustomerResult;
+    $this->result = $result->GetCustomerResult;
+    $this->validateResponse($result->GetCustomerResult->CUSTOMERID);
+    $this->setCustomerId($result->GetCustomerResult->CUSTOMERID);
     return $this;
   }
 
-  public function getCustomerByID($id) {
+  public function getCustomer() {
+    $this->validateRequest();
     $result = $this->client->call('GetCustomerByID', [
-      'id' => $id,
+      'id' => $this->customerId,
     ]);
-    $this->lastResult = $result->GetCustomerByIDResult;
+    $this->result = $result->GetCustomerByIDResult;
+    $this->validateResponse($result->GetCustomerByIDResult->CUSTOMERID);
+    return $this->result;
+  }
+
+  public function setCustomerId($customerId)
+  {
+    $this->customerId = $customerId;
     return $this;
+  }
+
+  public function getCustomerId()
+  {
+    return $this->customerId;
+  }
+
+  protected function validateRequest() {
+    if (!isset($this->customerId)) {
+      throw new MissingKeyException('CUSTOMERID');
+    }
+  }
+
+  protected function validateResponse($id)
+  {
+    if ($id > 0) {
+      return;
+    }
+    switch ($id) {
+      case 0:
+        throw new NotFoundException();
+
+      case -1:
+        throw new UnableToCreateException();
+
+      default:
+        throw new ResponseException('Unknown error code');
+    }
   }
 }

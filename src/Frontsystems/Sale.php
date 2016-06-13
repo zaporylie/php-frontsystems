@@ -2,44 +2,60 @@
 
 namespace Frontsystems;
 
-class Sale implements ServiceInterface {
+class Sale implements ResultInterface {
 
   protected $client;
 
-  protected $lastResult;
+  protected $result;
 
-  public function __construct(Client $client) {
+  protected $guid;
+
+  public function __construct(Client $client, $guid = null) {
     $this->client = $client;
+    $this->guid = $guid;
   }
 
   /**
    * @return mixed
    */
-  public function getLastResult() {
-    return $this->lastResult;
+  public function getResult() {
+    return $this->result;
   }
 
-  public function newSale(\Frontsystems\Entity\Sale $sale) {
+  public function save(\Frontsystems\Entity\Sale $sale) {
     $data = json_decode(json_encode($sale), TRUE);
     $result = $this->client->call('NewSale', $data);
-    $this->lastResult = $result;
+    $this->result = $result;
     return $this;
   }
 
-  public function getSaleStatus($guid) {
+  public function getSaleStatus() {
+    $this->validate();
     $result = $this->client->call('GetSaleStatus', [
-      'saleGuid' => $guid,
+      'saleGuid' => $this->guid,
     ]);
-    $this->lastResult = $result;
+    $this->result = $result;
     return $this;
   }
 
-  public function cancelSale($guid) {
+  public function cancelSale() {
+    $this->validate();
     $result = $this->client->call('CancelSale', [
-      'saleGuid' => $guid,
+      'saleGuid' => $this->guid,
     ]);
-    $this->lastResult = $result;
+    $this->result = $result;
     return $this;
+  }
+
+  public function getGuid()
+  {
+    return $this->guid;
+  }
+
+  protected function validate() {
+    if (!isset($this->guid)) {
+      throw new MissingKeyException('Guid');
+    }
   }
 
 

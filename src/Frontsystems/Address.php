@@ -2,24 +2,24 @@
 
 namespace Frontsystems;
 
-class Address implements ServiceInterface {
+class Address implements ResultInterface {
 
   protected $client;
 
-  protected $lastResult;
+  protected $result;
 
   protected $addressId;
 
-  public function __construct(Client $client, $addressId = null) {
+  public function __construct(Client $client, $addressID = null) {
     $this->client = $client;
-    $this->addressId = $addressId;
+    $this->addressId = $addressID;
   }
 
   /**
    * @return mixed
    */
-  public function getLastResult() {
-    return $this->lastResult;
+  public function getResult() {
+    return $this->result;
   }
 
   /**
@@ -28,16 +28,14 @@ class Address implements ServiceInterface {
    * @throws \Frontsystems\ClientException
    */
   public function save(\Frontsystems\Entity\Address $address) {
-    if (isset($this->addressId)) {
-      $address->setAddressId($this->addressId);
-    }
+    $address->setAddressId($this->addressId);
     $data = [
       'address' => json_decode(json_encode($address), TRUE)
     ];
     $result = $this->client->call('InsertAddress', $data);
-    $result = $result->InsertAddressResult;
-    $this->setAddressId($result);
-    $this->lastResult = $result;
+    $this->result = $result->InsertAddressResult;
+    $this->validateResponse($this->result);
+    $this->setAddressId($this->result);
     return $this;
   }
 
@@ -53,5 +51,22 @@ class Address implements ServiceInterface {
    */
   public function getAddressId() {
     return $this->addressId;
+  }
+
+  protected function validateResponse($id)
+  {
+    if ($id > 0) {
+      return;
+    }
+    switch ($id) {
+      case 0:
+        throw new NotFoundException();
+
+      case -1:
+        throw new UnableToCreateException();
+
+      default:
+        throw new ResponseException('Unknown error code');
+    }
   }
 }

@@ -4,7 +4,7 @@ namespace Frontsystems\Entity;
 
 use Frontsystems\Data\DateTime;
 
-class Sale implements \JsonSerializable {
+class Sale extends EntityBase implements \JsonSerializable {
 
   /**
    * >[string?]
@@ -43,7 +43,7 @@ class Sale implements \JsonSerializable {
   protected $IsVoided;
   /**
    *
-   * @var SalePayment[]
+   * @var Payment[]
    */
   protected $PaymentLines;
   /**
@@ -73,19 +73,18 @@ class Sale implements \JsonSerializable {
   protected $Shipments;
 
   public function __construct(
-    $Comment,
     $CustomerID,
     $DeliveryAddressID,
-    $ExtRef,
     $InvoiceAddressID,
+    array $PaymentLines,
+    DateTime $SaleDateTime,
+    array $SalesLines,
+    array $Shipments,
     $IsComplete,
     $IsVoided,
-    array $PaymentLines,
+    $ExtRef,
     $Receipt,
-    DateTime $SaleDateTime,
-    $SaleGuid,
-    array $SalesLines,
-    array $Shipments
+    $Comment
   )
   {
     $this->Comment = $Comment;
@@ -98,12 +97,12 @@ class Sale implements \JsonSerializable {
     $this->PaymentLines = $PaymentLines;
     $this->Receipt = $Receipt;
     $this->SaleDateTime = $SaleDateTime;
-    $this->SaleGuid = $SaleGuid;
     $this->SalesLines = $SalesLines;
     $this->Shipments = $Shipments;
   }
 
-  public function jsonSerialize() {
-    return array_filter(get_object_vars($this));
+  public function setGuid($guid)
+  {
+    $this->SaleGuid = $guid;
   }
 }

@@ -10,7 +10,7 @@ try {
   $product = new \Frontsystems\Sale($client);
 
   $customer = new \Frontsystems\Customer($client);
-  $person = $customer->getCustomer($credentials['email'])->getLastResult();
+  $person = $customer->getCustomerByEmail($credentials['email']);
   $customer_id = $person->CUSTOMERID;
 
   $address = new \Frontsystems\Address($client);

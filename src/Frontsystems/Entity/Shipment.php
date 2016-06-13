@@ -4,7 +4,7 @@ namespace Frontsystems\Entity;
 
 use Frontsystems\Data\DateTime;
 
-class Shipment implements \JsonSerializable {
+class Shipment extends EntityBase implements \JsonSerializable {
 
   /**
    * @var string
@@ -41,21 +41,26 @@ class Shipment implements \JsonSerializable {
     $ExtID,
     $Price,
     $Provider,
-    DateTime $RegisteredDateTime,
-    $ReturnLabel = NULL,
-    $ShipmentLabel = NULL,
-    $TrackingURL = NULL
+    DateTime $RegisteredDateTime
   ) {
     $this->ExtID = $ExtID;
     $this->Price = $Price;
     $this->Provider = $Provider;
     $this->RegisteredDateTime = $RegisteredDateTime;
-    $this->ReturnLabel = $ReturnLabel;
-    $this->ShipmentLabel = $ShipmentLabel;
-    $this->TrackingURL = $TrackingURL;
   }
 
-  public function jsonSerialize() {
-    return array_filter(get_object_vars($this));
+  public function setReturnLabel($ReturnLabel)
+  {
+    $this->ReturnLabel = $ReturnLabel;
+  }
+
+  public function setShipmentLabel($ShipmentLabel)
+  {
+    $this->ShipmentLabel = $ShipmentLabel;
+  }
+
+  public function setTrackingURL($TrackingURL)
+  {
+    $this->TrackingURL = $TrackingURL;
   }
 }

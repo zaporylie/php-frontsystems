@@ -42,7 +42,7 @@ class Client {
    */
   public function __construct($username, $password, $environment = self::TEST)
   {
-    ini_set('default_socket_timeout', 5);
+    ini_set('default_socket_timeout', 30);
     $this->username = $username;
     $this->password = $password;
     $this->environment = $environment;
@@ -62,7 +62,7 @@ class Client {
   /**
    * @return mixed
    */
-  public function call($method, $data)
+  public function call($method, array $data = [])
   {
     $client = new \SoapClient($this->environment, $this->options);
     if (isset($this->accessKey)) {

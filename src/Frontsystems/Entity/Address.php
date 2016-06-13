@@ -2,7 +2,7 @@
 
 namespace Frontsystems\Entity;
 
-class Address implements \JsonSerializable {
+class Address extends EntityBase implements \JsonSerializable {
 
   /**
    * int?
@@ -56,21 +56,21 @@ class Address implements \JsonSerializable {
   protected $Zip;
 
   public function __construct(
-    $Address,
-    $City,
-    $Comment,
-    $Country,
     $CustomerID,
-    $IsDefaultDeliveryAddress,
     $Name,
+    $Address,
+    $Zip,
+    $City,
+    $Country,
+    $IsDefaultDeliveryAddress,
     $Phone,
-    $Zip
+    $Comment
   ) {
+    $this->CustomerID = $CustomerID;
     $this->Address = $Address;
     $this->City = $City;
     $this->Comment = $Comment;
     $this->Country = $Country;
-    $this->CustomerID = $CustomerID;
     $this->IsDefaultDeliveryAddress = $IsDefaultDeliveryAddress;
     $this->Name = $Name;
     $this->Phone = $Phone;
@@ -82,9 +82,5 @@ class Address implements \JsonSerializable {
    */
   public function setAddressId($addressId) {
     $this->ADDRESSID = $addressId;
-  }
-
-  public function jsonSerialize() {
-    return array_filter(get_object_vars($this));
   }
 }
