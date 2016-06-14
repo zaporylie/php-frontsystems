@@ -23,7 +23,7 @@ class SaleLine extends EntityBase implements \JsonSerializable {
   /**
    * @var int
    */
-  protected $StockID;
+  protected $StockID = 0;
   /**
    * @var string
    */

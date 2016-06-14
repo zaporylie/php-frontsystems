@@ -23,14 +23,17 @@ class Sale implements ResultInterface {
   }
 
   public function save(\Frontsystems\Entity\Sale $sale) {
-    $data = json_decode(json_encode($sale), TRUE);
+    $data = [
+      'sale' => json_decode(json_encode($sale), TRUE),
+    ];
     $result = $this->client->call('NewSale', $data);
-    $this->result = $result;
+    $this->result = $result->NewSaleResult;
+    $this->validateResponse($this->result);
     return $this;
   }
 
   public function getSaleStatus() {
-    $this->validate();
+    $this->validateRequest();
     $result = $this->client->call('GetSaleStatus', [
       'saleGuid' => $this->guid,
     ]);
@@ -39,7 +42,7 @@ class Sale implements ResultInterface {
   }
 
   public function cancelSale() {
-    $this->validate();
+    $this->validateRequest();
     $result = $this->client->call('CancelSale', [
       'saleGuid' => $this->guid,
     ]);
@@ -52,9 +55,26 @@ class Sale implements ResultInterface {
     return $this->guid;
   }
 
-  protected function validate() {
+  protected function validateRequest() {
     if (!isset($this->guid)) {
-      throw new MissingKeyException('Guid');
+      throw new UndefinedArgumentException('Guid');
+    }
+  }
+
+  protected function validateResponse($id)
+  {
+    if ($id > 0) {
+      return;
+    }
+    switch ($id) {
+      case 0:
+        throw new NotFoundException();
+
+      case -1:
+        throw new NotCreatedException();
+
+      default:
+        throw new \UnexpectedValueException();
     }
   }
 

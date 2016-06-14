@@ -63,10 +63,10 @@ class Address implements ResultInterface {
         throw new NotFoundException();
 
       case -1:
-        throw new UnableToCreateException();
+        throw new NotCreatedException();
 
       default:
-        throw new ResponseException('Unknown error code');
+        throw new \UnexpectedValueException();
     }
   }
 }

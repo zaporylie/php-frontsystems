@@ -73,7 +73,7 @@ class Customer implements ResultInterface
 
   protected function validateRequest() {
     if (!isset($this->customerId)) {
-      throw new MissingKeyException('CUSTOMERID');
+      throw new UndefinedArgumentException('customerId');
     }
   }
 
@@ -87,10 +87,10 @@ class Customer implements ResultInterface
         throw new NotFoundException();
 
       case -1:
-        throw new UnableToCreateException();
+        throw new NotCreatedException();
 
       default:
-        throw new ResponseException('Unknown error code');
+        throw new \UnexpectedValueException();
     }
   }
 }

@@ -2,7 +2,7 @@
 
 namespace Frontsystems;
 
-class NotFoundException extends ResponseException
+class NotFoundException extends \UnexpectedValueException
 {
 
 }

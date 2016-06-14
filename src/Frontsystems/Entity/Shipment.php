@@ -3,6 +3,7 @@
 namespace Frontsystems\Entity;
 
 use Frontsystems\Data\DateTime;
+use Frontsystems\Data\ShipmentProviderEnum;
 
 class Shipment extends EntityBase implements \JsonSerializable {
 
@@ -37,16 +38,28 @@ class Shipment extends EntityBase implements \JsonSerializable {
    */
   protected $TrackingURL;
 
+  /**
+   * Shipment constructor.
+   * @param float $Price
+   * @param string $Provider
+   * @param \Frontsystems\Data\DateTime $RegisteredDateTime
+   */
   public function __construct(
-    $ExtID,
     $Price,
     $Provider,
     DateTime $RegisteredDateTime
   ) {
-    $this->ExtID = $ExtID;
     $this->Price = $Price;
+    ShipmentProviderEnum::assertExists($Provider);
     $this->Provider = $Provider;
     $this->RegisteredDateTime = $RegisteredDateTime;
+  }
+
+  /**
+   * @param string $ExtID
+   */
+  public function setExtID($ExtID) {
+    $this->ExtID = $ExtID;
   }
 
   public function setReturnLabel($ReturnLabel)

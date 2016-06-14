@@ -3,6 +3,7 @@
 namespace Frontsystems\Entity;
 
 use Frontsystems\Data\DateTime;
+use Ramsey\Uuid\Uuid;
 
 class Sale extends EntityBase implements \JsonSerializable {
 
@@ -82,27 +83,49 @@ class Sale extends EntityBase implements \JsonSerializable {
     array $Shipments,
     $IsComplete,
     $IsVoided,
-    $ExtRef,
-    $Receipt,
     $Comment
   )
   {
     $this->Comment = $Comment;
     $this->CustomerID = $CustomerID;
     $this->DeliveryAddressID = $DeliveryAddressID;
-    $this->ExtRef = $ExtRef;
     $this->InvoiceAddressID = $InvoiceAddressID;
     $this->IsComplete = $IsComplete;
     $this->IsVoided = $IsVoided;
     $this->PaymentLines = $PaymentLines;
-    $this->Receipt = $Receipt;
     $this->SaleDateTime = $SaleDateTime;
     $this->SalesLines = $SalesLines;
     $this->Shipments = $Shipments;
   }
 
+  /**
+   * @param string $ExtRef
+   */
+  public function setExtRef($ExtRef) {
+    $this->ExtRef = $ExtRef;
+  }
+
+  /**
+   * @param mixed $Receipt
+   */
+  public function setReceipt($Receipt) {
+    $this->Receipt = $Receipt;
+  }
+
   public function setGuid($guid)
   {
     $this->SaleGuid = $guid;
+    return $this;
+  }
+
+  static public function generateGuid($reference = null)
+  {
+    if (isset($reference)) {
+      $uuid = Uuid::uuid5(Uuid::NAMESPACE_OID, $reference);
+    }
+    else {
+      $uuid = Uuid::uuid4();
+    }
+    return '{' . $uuid->toString() . '}';
   }
 }

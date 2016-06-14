@@ -36,21 +36,31 @@ class Payment extends EntityBase implements \JsonSerializable {
    */
   protected $ResponseBody;
 
-
   public function __construct(
     $Amount,
-    $ExtRef,
     $LastCompletedStep,
-    $PaymentType,
-    $ResponseBody
+    $PaymentType
   ) {
     $this->Amount = $Amount;
-    $this->ExtRef = $ExtRef;
-    $this->ResponseBody = $ResponseBody;
 
-    PaymentStepEnum::exists($LastCompletedStep);
+    PaymentStepEnum::assertExists($LastCompletedStep);
     $this->LastCompletedStep = $LastCompletedStep;
-    PaymentTypeEnum::exists($PaymentType);
+    PaymentTypeEnum::assertExists($PaymentType);
     $this->PaymentType = $PaymentType;
+  }
+
+  /**
+   * @param string $ExtRef
+   */
+  public function setExtRef($ExtRef) {
+    $this->ExtRef = $ExtRef;
+    return $this;
+  }
+
+  /**
+   * @param string $ResponseBody
+   */
+  public function setResponseBody($ResponseBody) {
+    $this->ResponseBody = $ResponseBody;
   }
 }

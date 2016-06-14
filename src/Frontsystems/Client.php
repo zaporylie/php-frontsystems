@@ -4,7 +4,7 @@ namespace Frontsystems;
 
 class Client {
 
-  const TEST = 'https://dinbutikkdev.frontsystems.no/webshop/WebshopIntegration.svc?singleWsdl';
+  const TEST = 'https://integrationtest.frontsystems.no/webshop/WebshopIntegration.svc?wsdl';
   const LIVE = 'https://integration.frontsystems.no/webshop/WebshopIntegration.svc?singleWsdl';
 
   /**
