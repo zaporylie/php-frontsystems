@@ -2,53 +2,54 @@
 
 namespace Frontsystems\Entity;
 
-class SaleLine extends EntityBase implements \JsonSerializable {
+class SaleLine extends EntityBase implements \JsonSerializable
+{
 
   /**
    * @var string
    */
-  protected $Identitiy;
+    protected $Identitiy;
   /**
    * @var float
    */
-  protected $Price;
+    protected $Price;
   /**
    * @var float
    */
-  protected $Qty;
+    protected $Qty;
   /**
    * @var string
    */
-  protected $ShipmentExtId;
+    protected $ShipmentExtId;
   /**
    * @var int
    */
-  protected $StockID = 0;
+    protected $StockID = 0;
   /**
    * @var string
    */
-  protected $Text;
+    protected $Text;
 
-  public function __construct(
-    $Identitiy,
-    $Price,
-    $Qty,
-    $Text
-  )
-  {
-    $this->Identitiy = $Identitiy;
-    $this->Price = $Price;
-    $this->Qty = $Qty;
-    $this->Text = $Text;
-  }
+    public function __construct(
+        $Identitiy,
+        $Price,
+        $Qty,
+        $Text
+    ) {
+    
+        $this->Identitiy = $Identitiy;
+        $this->Price = $Price;
+        $this->Qty = $Qty;
+        $this->Text = $Text;
+    }
 
-  public function setStockID($StockID)
-  {
-    $this->StockID = $StockID;
-  }
+    public function setStockID($StockID)
+    {
+        $this->StockID = $StockID;
+    }
 
-  public function setShipmentExtId($ShipmentExtId)
-  {
-    $this->ShipmentExtId = $ShipmentExtId;
-  }
+    public function setShipmentExtId($ShipmentExtId)
+    {
+        $this->ShipmentExtId = $ShipmentExtId;
+    }
 }

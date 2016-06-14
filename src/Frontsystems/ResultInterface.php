@@ -2,7 +2,8 @@
 
 namespace Frontsystems;
 
-interface ResultInterface {
+interface ResultInterface
+{
 
-  public function getResult();
+    public function getResult();
 }

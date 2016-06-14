@@ -2,88 +2,89 @@
 
 namespace Frontsystems\Entity;
 
-class Customer extends EntityBase implements \JsonSerializable {
+class Customer extends EntityBase implements \JsonSerializable
+{
 
   /**
    * @var bool
    */
-  protected $AgreedSendEmail;
+    protected $AgreedSendEmail;
   /**
    * @var bool
    */
-  protected $AgreedSendSMS;
+    protected $AgreedSendSMS;
   /**
    * @var int
    */
-  protected $CUSTOMERID;
+    protected $CUSTOMERID;
   /**
    * @var float
    */
-  protected $StdDiscount;
+    protected $StdDiscount;
   /**
    * @var string
    */
-  protected $Address;
+    protected $Address;
   /**
    * @var string
    */
-  protected $CardNo;
+    protected $CardNo;
   /**
    * @var string
    */
-  protected $City;
+    protected $City;
   /**
    * @var string
    */
-  protected $Comment;
+    protected $Comment;
   /**
    * @var string
    */
-  protected $Country;
+    protected $Country;
   /*
    * @var string
    */
-  protected $Email;
+    protected $Email;
   /**
    * @var string
    */
-  protected $FirstName;
+    protected $FirstName;
   /**
    * @var string
    */
-  protected $LastName;
+    protected $LastName;
   /**
    * @var string
    */
-  protected $Phone;
+    protected $Phone;
   /**
    * @var string
    */
-  protected $Zip;
+    protected $Zip;
   /**
    * @var string
    */
-  protected $DlvAddress;
+    protected $DlvAddress;
   /**
    * @var string
    */
-  protected $DlvCity;
+    protected $DlvCity;
   /**
    * @var string
    */
-  protected $DlvComment;
+    protected $DlvComment;
   /**
    * @var string
    */
-  protected $DlvName;
+    protected $DlvName;
   /**
    * @var string
    */
-  protected $DlvPhone;
+    protected $DlvPhone;
   /**
    * @var string
    */
-  protected $DlvZip;
+    protected $DlvZip;
 
   /**
    * Customer constructor.
@@ -104,44 +105,44 @@ class Customer extends EntityBase implements \JsonSerializable {
    * @param string $DlvPhone
    * @param string $DlvZip
    */
-  public function __construct(
-    $StdDiscount,
-    $Address,
-    $City,
-    $Comment,
-    $Country,
-    $Email,
-    $FirstName,
-    $LastName,
-    $Phone,
-    $Zip,
-    $DlvAddress,
-    $DlvCity,
-    $DlvComment,
-    $DlvName,
-    $DlvPhone,
-    $DlvZip
-  ) {
-    $this->Address = $Address;
-    $this->City = $City;
-    $this->Comment = $Comment;
-    $this->Country = $Country;
-    $this->DlvAddress = $DlvAddress;
-    $this->DlvCity = $DlvCity;
-    $this->DlvComment = $DlvComment;
-    $this->DlvName = $DlvName;
-    $this->DlvPhone = $DlvPhone;
-    $this->DlvZip = $DlvZip;
-    $this->Email = $Email;
-    $this->FirstName = $FirstName;
-    $this->LastName = $LastName;
-    $this->Phone = $Phone;
-    $this->StdDiscount = $StdDiscount;
-    $this->Zip = $Zip;
-  }
+    public function __construct(
+        $StdDiscount,
+        $Address,
+        $City,
+        $Comment,
+        $Country,
+        $Email,
+        $FirstName,
+        $LastName,
+        $Phone,
+        $Zip,
+        $DlvAddress,
+        $DlvCity,
+        $DlvComment,
+        $DlvName,
+        $DlvPhone,
+        $DlvZip
+    ) {
+        $this->Address = $Address;
+        $this->City = $City;
+        $this->Comment = $Comment;
+        $this->Country = $Country;
+        $this->DlvAddress = $DlvAddress;
+        $this->DlvCity = $DlvCity;
+        $this->DlvComment = $DlvComment;
+        $this->DlvName = $DlvName;
+        $this->DlvPhone = $DlvPhone;
+        $this->DlvZip = $DlvZip;
+        $this->Email = $Email;
+        $this->FirstName = $FirstName;
+        $this->LastName = $LastName;
+        $this->Phone = $Phone;
+        $this->StdDiscount = $StdDiscount;
+        $this->Zip = $Zip;
+    }
 
-  public function setCustomerId($customerId)
-  {
-    $this->CUSTOMERID = $customerId;
-  }
+    public function setCustomerId($customerId)
+    {
+        $this->CUSTOMERID = $customerId;
+    }
 }

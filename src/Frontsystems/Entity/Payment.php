@@ -5,62 +5,65 @@ namespace Frontsystems\Entity;
 use Frontsystems\Data\PaymentStepEnum;
 use Frontsystems\Data\PaymentTypeEnum;
 
-class Payment extends EntityBase implements \JsonSerializable {
+class Payment extends EntityBase implements \JsonSerializable
+{
 
   /**
    * @var float
    */
-  protected $Amount;
+    protected $Amount;
   /**
    * @var string
    */
-  protected $CardType;
+    protected $CardType;
   /**
    * @var string
    */
-  protected $Currency;
+    protected $Currency;
   /**
    * @var string
    */
-  protected $ExtRef;
+    protected $ExtRef;
   /**
    * @var string
    */
-  protected $LastCompletedStep;
+    protected $LastCompletedStep;
   /**
    * @var string
    */
-  protected $PaymentType;
+    protected $PaymentType;
   /**
    * @var string
    */
-  protected $ResponseBody;
+    protected $ResponseBody;
 
-  public function __construct(
-    $Amount,
-    $LastCompletedStep,
-    $PaymentType
-  ) {
-    $this->Amount = $Amount;
+    public function __construct(
+        $Amount,
+        $LastCompletedStep,
+        $PaymentType
+    ) {
+        $this->Amount = $Amount;
 
-    PaymentStepEnum::assertExists($LastCompletedStep);
-    $this->LastCompletedStep = $LastCompletedStep;
-    PaymentTypeEnum::assertExists($PaymentType);
-    $this->PaymentType = $PaymentType;
-  }
+        PaymentStepEnum::assertExists($LastCompletedStep);
+        $this->LastCompletedStep = $LastCompletedStep;
+        PaymentTypeEnum::assertExists($PaymentType);
+        $this->PaymentType = $PaymentType;
+    }
 
   /**
    * @param string $ExtRef
    */
-  public function setExtRef($ExtRef) {
-    $this->ExtRef = $ExtRef;
-    return $this;
-  }
+    public function setExtRef($ExtRef)
+    {
+        $this->ExtRef = $ExtRef;
+        return $this;
+    }
 
   /**
    * @param string $ResponseBody
    */
-  public function setResponseBody($ResponseBody) {
-    $this->ResponseBody = $ResponseBody;
-  }
+    public function setResponseBody($ResponseBody)
+    {
+        $this->ResponseBody = $ResponseBody;
+    }
 }
