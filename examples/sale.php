@@ -13,7 +13,7 @@ try {
   $customer_id = $customer_service->getCustomerByEmail($credentials['email'])->getCustomerId();
 
   $product_service = new \Frontsystems\Product($client);
-  $products = $product_service->getProductsByPage(0, 1);
+  $products = $product_service->getProductsByPage(0, 2);
   $product_sku = $products[0]->IDENTITY;
 
   $address_service = new \Frontsystems\Address($client);
@@ -31,21 +31,18 @@ try {
 
   $payment = new \Frontsystems\Entity\Payment(
     10,
-    '',
     \Frontsystems\Data\PaymentStepEnum::AUTH,
-    \Frontsystems\Data\PaymentTypeEnum::COLLECTOR,
-    null
+    \Frontsystems\Data\PaymentTypeEnum::COLLECTOR
   );
   $sale_line = new \Frontsystems\Entity\SaleLine(
     $product_sku,
     10,
     1,
-    12345
+    'Comment'
   );
   $shipment = new \Frontsystems\Entity\Shipment(
-    '',
     0,
-    \Frontsystems\Data\ShipmentProviderEnum::INSTORE,
+    \Frontsystems\Data\ShipmentProviderEnum::POSTEN,
     new \Frontsystems\Data\DateTime()
   );
 
@@ -59,15 +56,13 @@ try {
     array($shipment),
     false,
     false,
-    12345,
-    null,
     'Comment'
   );
+  $sale->setGuid($sale->generateGuid());
   $sale_service = new \Frontsystems\Sale($client);
+  var_dump(json_decode(json_encode($sale), TRUE));
   $sale_service->save($sale);
-
-
-  var_dump($product->newSale($sale)->getLastResult());
+  var_dump($sale_service->getResult());
 }
 catch (\Exception $e) {
   var_dump($e);
