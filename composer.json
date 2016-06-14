@@ -20,7 +20,8 @@
     },
     "require": {
         "php": "^5.4 || ^7.0",
-        "commerceguys/enum": "^1.0"
+        "commerceguys/enum": "^1.0",
+        "ramsey/uuid": "^3.4"
     },
     "require-dev": {
         "phpunit/phpunit": "4.3.*",
