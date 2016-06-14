@@ -8,13 +8,13 @@ class Client
     const TEST = 'https://integrationtest.frontsystems.no/webshop/WebshopIntegration.svc?wsdl';
     const LIVE = 'https://integration.frontsystems.no/webshop/WebshopIntegration.svc?singleWsdl';
 
-  /**
-   * @var array
-   */
+    /**
+    * @var array
+    */
     public $options = [
-    'trace' => true,
-    'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
-    'connection_timeout' => 2,
+        'trace' => true,
+        'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
+        'connection_timeout' => 2,
     ];
 
   /**
@@ -53,8 +53,8 @@ class Client
     public function login()
     {
         $results = $this->call('Logon', [
-        'username' => $this->username,
-        'password' => $this->password
+            'username' => $this->username,
+            'password' => $this->password
         ]);
         $this->accessKey = $results->LogonResult;
 

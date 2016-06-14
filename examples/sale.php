@@ -13,7 +13,7 @@ try {
     $customer_id = $customer_service->getCustomerByEmail($credentials['email'])->getCustomerId();
 
     $product_service = new \Frontsystems\Product($client);
-    $products = $product_service->getProductsByPage(0, 2);
+    $products = $product_service->getProductsByPage(1, 1);
     $product_sku = $products[0]->IDENTITY;
 
     $address_service = new \Frontsystems\Address($client);
@@ -50,10 +50,10 @@ try {
         $customer_id,
         $address_id,
         $address_id,
-        array($payment),
+        [$sale_line, $sale_line],
+        [$shipment],
+        [$payment],
         new \Frontsystems\Data\DateTime(),
-        array($sale_line),
-        array($shipment),
         false,
         false,
         'Comment'

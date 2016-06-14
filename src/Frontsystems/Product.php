@@ -55,7 +55,7 @@ class Product implements ResultInterface
     public function getFullProductInfo($productId)
     {
         $result = $this->client->call('GetFullProductInfo', [
-        'productid' => $productId,
+            'productid' => $productId,
         ]);
         return $this->result = $result;
     }
@@ -63,8 +63,8 @@ class Product implements ResultInterface
     public function getProductsByPage($page = 0, $pageSize = 50)
     {
         $result = $this->client->call('GetProductsByPage', [
-        'page' => $page,
-        'pagesize' => $pageSize,
+            'page' => $page,
+            'pagesize' => $pageSize,
         ]);
         return $this->result = $result->GetProductsByPageResult->Product;
     }

@@ -8,80 +8,69 @@ use Ramsey\Uuid\Uuid;
 class Sale extends EntityBase implements \JsonSerializable
 {
 
-  /**
-   * >[string?]
-   * @var string
-   */
+    /**
+    * @var string
+    */
     protected $Comment;
-  /**
-   * >[int?]
-   * @var int
-   */
+    /**
+    * @var int
+    */
     protected $CustomerID;
-  /**
-   * >[int?]
-   * @var int
-   */
+    /**
+    * @var int
+    */
     protected $DeliveryAddressID;
-  /**
-   * >[string?]
-   * @var string
-   */
+    /**
+    * @var string
+    */
     protected $ExtRef;
-  /**
-   * >[int?]
-   * @var int
-   */
+    /**
+    * @var int
+    */
     protected $InvoiceAddressID;
-  /**
-   * >[boolean?]
-   * @var bool
-   */
+    /**
+    * @var bool
+    */
     protected $IsComplete;
-  /**
-   * >[boolean?]
-   * @var bool
-   */
+    /**
+    * @var bool
+    */
     protected $IsVoided;
-  /**
-   *
-   * @var Payment[]
-   */
+    /**
+    * @var Payment[]
+    */
     protected $PaymentLines;
-  /**
-   * >[base64Binary?]
-   * @var
-   */
+    /**
+    * >[base64Binary?]
+    * @var
+    */
     protected $Receipt;
-  /**
-   * >[dateTime?]
-   * @var DateTime
-   */
+    /**
+    * >[dateTime?]
+    * @var DateTime
+    */
     protected $SaleDateTime;
-  /**
-   * >[string?]
-   * @var
-   */
+    /**
+    * @var string
+    */
     protected $SaleGuid;
-  /**
-   *
-   * @var
-   */
+    /**
+    * @var SaleLine[]
+    */
     protected $SalesLines;
-  /**
-   *
-   * @var
-   */
+    /**
+    * @var Shipment[]
+    */
     protected $Shipments;
 
     public function __construct(
         $CustomerID,
         $DeliveryAddressID,
         $InvoiceAddressID,
-        array $PaymentLines,
-        DateTime $SaleDateTime,
         array $SalesLines,
         array $Shipments,
+        array $PaymentLines,
+        DateTime $SaleDateTime,
         $IsComplete,
         $IsVoided,
         $Comment
