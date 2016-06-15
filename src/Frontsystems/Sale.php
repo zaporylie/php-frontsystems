@@ -28,19 +28,20 @@ class Sale implements ResultInterface
     public function save(\Frontsystems\Entity\Sale $sale)
     {
         $data = [
-        'sale' => json_decode(json_encode($sale), true),
+            'sale' => json_decode(json_encode($sale), true),
         ];
         $result = $this->client->call('NewSale', $data);
         $this->result = $result->NewSaleResult;
         $this->validateResponse($this->result);
+        $this->guid = $sale->getGuid();
         return $this;
     }
 
-    public function getSaleStatus()
+    public function status()
     {
         $this->validateRequest();
         $result = $this->client->call('GetSaleStatus', [
-        'saleGuid' => $this->guid,
+            'saleGuid' => $this->guid,
         ]);
         $this->result = $result;
         return $this;
@@ -50,7 +51,7 @@ class Sale implements ResultInterface
     {
         $this->validateRequest();
         $result = $this->client->call('CancelSale', [
-        'saleGuid' => $this->guid,
+            'saleGuid' => $this->guid,
         ]);
         $this->result = $result;
         return $this;
@@ -59,6 +60,14 @@ class Sale implements ResultInterface
     public function getGuid()
     {
         return $this->guid;
+    }
+
+    /**
+     * @param null $guid
+     */
+    public function setGuid($guid) {
+        $this->guid = $guid;
+        return $this;
     }
 
     protected function validateRequest()

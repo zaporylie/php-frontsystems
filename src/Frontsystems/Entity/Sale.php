@@ -68,24 +68,45 @@ class Sale extends EntityBase implements \JsonSerializable
         $DeliveryAddressID,
         $InvoiceAddressID,
         array $SalesLines,
-        array $Shipments,
         array $PaymentLines,
         DateTime $SaleDateTime,
         $IsComplete,
         $IsVoided,
         $Comment
     ) {
-    
         $this->Comment = $Comment;
         $this->CustomerID = $CustomerID;
         $this->DeliveryAddressID = $DeliveryAddressID;
         $this->InvoiceAddressID = $InvoiceAddressID;
         $this->IsComplete = $IsComplete;
         $this->IsVoided = $IsVoided;
-        $this->PaymentLines = $PaymentLines;
         $this->SaleDateTime = $SaleDateTime;
         $this->SalesLines = $SalesLines;
+        $this->PaymentLines = $PaymentLines;
+    }
+
+    /**
+     * @param \Frontsystems\Entity\SaleLine[] $SalesLines
+     */
+    public function setSalesLines($SalesLines) {
+        $this->SalesLines = $SalesLines;
+        return $this;
+    }
+
+    /**
+     * @param \Frontsystems\Entity\Shipment[] $Shipments
+     */
+    public function setShipments($Shipments) {
         $this->Shipments = $Shipments;
+        return $this;
+    }
+
+    /**
+     * @param \Frontsystems\Entity\Payment[] $PaymentLines
+     */
+    public function setPaymentLines($PaymentLines) {
+        $this->PaymentLines = $PaymentLines;
+        return $this;
     }
 
   /**
@@ -94,6 +115,7 @@ class Sale extends EntityBase implements \JsonSerializable
     public function setExtRef($ExtRef)
     {
         $this->ExtRef = $ExtRef;
+        return $this;
     }
 
   /**
@@ -102,12 +124,20 @@ class Sale extends EntityBase implements \JsonSerializable
     public function setReceipt($Receipt)
     {
         $this->Receipt = $Receipt;
+        return $this;
     }
 
     public function setGuid($guid)
     {
         $this->SaleGuid = $guid;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGuid() {
+        return $this->SaleGuid;
     }
 
     public static function generateGuid($reference = null)

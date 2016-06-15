@@ -51,7 +51,6 @@ try {
         $address_id,
         $address_id,
         [$sale_line, $sale_line],
-        [$shipment],
         [$payment],
         new \Frontsystems\Data\DateTime(),
         false,
@@ -60,9 +59,10 @@ try {
     );
     $sale->setGuid($sale->generateGuid());
     $sale_service = new \Frontsystems\Sale($client);
-    var_dump(json_decode(json_encode($sale), true));
-    $sale_service->save($sale);
-    var_dump($sale_service->getResult());
+    var_dump($sale_service->save($sale)->getResult());
+    var_dump($sale_service->status()->getResult());
+    var_dump($sale_service->cancelSale()->getResult());
+    var_dump($sale_service->save($sale)->getResult());
 } catch (\Exception $e) {
     var_dump($e);
 }

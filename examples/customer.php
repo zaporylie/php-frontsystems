@@ -14,7 +14,7 @@ try {
         'City',
         'Comment',
         'Country',
-        'Email',
+        $credentials['email'],
         'FirstName',
         'LastName',
         'Phone',
